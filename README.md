@@ -1,30 +1,31 @@
 # Mobile Chaos QA
 
-**Android game lifecycle interruption and recovery testing.**
+**An Android game interruption and recovery testing toolkit.**
 
-## Why it matters
+Mobile games must handle background/foreground transitions, device interruptions, network changes and unexpected app termination without corrupting the player's progress.
 
-Mobile games must recover correctly when the player backgrounds the app, locks the device, or experiences network disruptions.
+## Current MVP (foundation)
 
-## MVP scope
+A testable Python ADB wrapper and parser distinguish **ready**, **offline** and other reported Android devices. Unit tests run without requiring a physical Android device.
 
-A Python/ADB test harness that checks connected-device readiness, captures evidence, and later drives a dedicated Android demo app. Real lifecycle test results require an emulator or device.
+**This foundation does not yet run lifecycle scenarios against an APK.** Actual lifecycle recovery checks need Android Emulator or a physical device plus a controlled test app.
 
-## Test strategy
+## Run
 
-This project documents assumptions, positive and negative scenarios, reproducible evidence, and explicit release criteria. The first implementation will be developed on a feature branch and reviewed before merging.
-
-## Status
-
-**In development — initial scaffold.** No passing-test or real-device claims until verified.
+```bash
+python -m pip install -e ".[test]"
+python -m pytest -q
+adb devices
+```
 
 ## Roadmap
 
-1. Minimal working implementation
-2. Automated positive, boundary, and adversarial tests
-3. CI reports and reproducible failures
-4. Portfolio-quality documentation and demos
+1. Device setup and preflight checks.
+2. Dedicated demo Android app with observable lifecycle state.
+3. Background/resume and screen-lock interruption sequences.
+4. Network drop/recovery sequences, safe cleanup and logs.
+5. Evidence bundles, pass/fail assertions and CI strategy for emulator tests.
 
-## License
+## Evidence
 
-License to be chosen before distribution.
+CI currently verifies the harness logic only; it does not claim real Android app or device test coverage.
