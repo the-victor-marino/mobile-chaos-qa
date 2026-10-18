@@ -10,31 +10,43 @@
 
 # Mobile Chaos QA
 
-**Android game lifecycle interruption and recovery testing.**
+[![QA tests](https://github.com/the-victor-marino/mobile-chaos-qa/actions/workflows/tests.yml/badge.svg)](https://github.com/the-victor-marino/mobile-chaos-qa/actions/workflows/tests.yml)
 
-## Why it matters
+**Find Android game progression defects caused by interruptions.**
 
-Mobile games must recover correctly when the player backgrounds the app, locks the device, or experiences network disruptions.
+## The problem
 
-## MVP scope
+Mobile games are interrupted by HOME, app switching, screen-off, backgrounding and process lifecycle events. A player should not lose progress simply because they leave the app.
 
-A Python/ADB test harness that checks connected-device readiness, captures evidence, and later drives a dedicated Android demo app. Real lifecycle test results require an emulator or device.
+## Delivered
+
+- Python ADB runner with device-ready checks and error handling
+- Native Kotlin **Android demo app** storing game state locally
+- App exposes level/coins through both its UI and structured logcat evidence
+- Automated HOME -> relaunch scenario, checking preserved game state
+- JSON and logcat artifact output
+- Pytest suite for parsers, negative assertions and harness behavior
+
+## Android Studio
+
+1. Open the `android-demo/` directory as a project in Android Studio.
+2. Configure an Android Virtual Device (recommended API 35).
+3. Build/run the `app` module on the emulator.
+4. In a terminal with Python and `adb` on PATH:
+
+```bash
+python -m pip install -e ".[test]"
+python -m pytest -q
+adb devices
+python -m mobile_chaos_qa.cli --output reports/resume
+```
+
+The test returns 0 if progression is preserved and 1 if state differs. Device logs and result JSON are placed in `reports/resume/`.
 
 ## Test strategy
 
-This project documents assumptions, positive and negative scenarios, reproducible evidence, and explicit release criteria. The first implementation will be developed on a feature branch and reviewed before merging.
+See [test strategy](docs/TEST_STRATEGY.md) for test oracles, environment dependencies and remaining scenarios.
 
-## Status
+## Honest scope
 
-**In development — initial scaffold.** No passing-test or real-device claims until verified.
-
-## Roadmap
-
-1. Minimal working implementation
-2. Automated positive, boundary, and adversarial tests
-3. CI reports and reproducible failures
-4. Portfolio-quality documentation and demos
-
-## License
-
-License to be chosen before distribution.
+GitHub Actions currently validates Python harness tests **without an Android emulator**. Live device QA requires the emulator or physical hardware. Network disruption, screen-off and process-death suites are documented next steps, not proven coverage.
