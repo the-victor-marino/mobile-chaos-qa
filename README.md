@@ -1,3 +1,13 @@
+# 🚧 WIP — WORK IN PROGRESS 🚧
+
+> [!WARNING]
+> **UNDER DEVELOPMENT — NOT PRODUCTION READY.**
+> These projects are still being developed and have **not yet been fully reviewed or understood by their author**. Code, documentation, and test coverage remain subject to review. Passing automated checks do not establish production readiness.
+>
+> **EM DESENVOLVIMENTO:** o autor ainda não revisou nem compreendeu completamente este projeto. Este aviso deve permanecer até que essa revisão e compreensão estejam concluídas.
+
+---
+
 # Mobile Chaos QA
 
 [![QA tests](https://github.com/the-victor-marino/mobile-chaos-qa/actions/workflows/tests.yml/badge.svg)](https://github.com/the-victor-marino/mobile-chaos-qa/actions/workflows/tests.yml)
